@@ -1,0 +1,18 @@
+{
+  "name": "Timesheet",
+  "version": "1.0.0",
+  "description": "TimeSheet",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon -L app.js"
+  },
+  "author": "Leonofre",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-errors": "^1.7.3",
+    "mongoose": "^5.7.13",
+    "nodemon": "^2.0.6"
+  }
+}
