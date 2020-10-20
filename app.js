@@ -11,8 +11,10 @@ app.use(express.urlencoded({ extended: true }));
 require('./initDB')();
 
 const ClientRoute = require('./Routes/Client.route');
-app.use('/clients', ClientRoute);
+const ProjectRoute = require('./Routes/Project.route');
 
+app.use('/clients', ClientRoute);
+app.use('/projects', ProjectRoute);
 //404 handler and pass to error handler
 app.use((req, res, next) => {
   /*

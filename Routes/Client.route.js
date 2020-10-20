@@ -12,6 +12,9 @@ router.post('/', ClientController.createNewClient);
 //Get a Client by id
 router.get('/:id', ClientController.findClientById);
 
+//Get a Projects by Client
+router.get('/:id/projects', ClientController.findProjectByClient);
+
 //Update a Client by id
 router.patch('/:id', ClientController.updateAClient);
 

@@ -18,7 +18,20 @@ const ClientSchema = new Schema({
     type: String,
     required: true,
   },
-  
+  contract_type: {
+    type: String,
+    required: true,
+  },
+  contract_hours: {
+    type: Number,
+    required: true,
+  },
+  projects :[
+    {
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'project'
+    }
+  ]
 });
 
 const Client = mongoose.model('client', ClientSchema);

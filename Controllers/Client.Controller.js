@@ -49,6 +49,24 @@ module.exports = {
     }
   },
 
+  findProjectByClient: async (req, res, next) => {
+    const {id} = req.params;
+    try {
+      const client = await Client.findById(id).populate( 'projects' );
+      if (!client) {
+        throw createError(404, 'Client has no projects.');
+      }
+      res.send(client);
+    } catch (error) {
+      console.log(error.message);
+      if (error instanceof mongoose.CastError) {
+        next(createError(400, 'Invalid Client id'));
+        return;
+      }
+      next(error);
+    }
+  },
+
   updateAClient: async (req, res, next) => {
     try {
       const id = req.params.id;
