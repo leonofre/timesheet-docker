@@ -12,9 +12,14 @@ require('./initDB')();
 
 const ClientRoute = require('./Routes/Client.route');
 const ProjectRoute = require('./Routes/Project.route');
+const UserRoute = require('./Routes/User.route');
+const OrganizationRoute = require('./Routes/Organization.route');
 
 app.use('/clients', ClientRoute);
 app.use('/projects', ProjectRoute);
+app.use('/users', UserRoute);
+app.use('/organizations', OrganizationRoute);
+
 //404 handler and pass to error handler
 app.use((req, res, next) => {
   /*

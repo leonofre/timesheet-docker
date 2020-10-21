@@ -6,9 +6,9 @@ const ProjectSchema = new Schema({
     type: String,
     required: true
   },
-  client :{
-      type:mongoose.Schema.Types.ObjectId,
-      ref:'client',
+  client: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'client',
       required: true,
   },
   billable: {

@@ -26,9 +26,9 @@ const ClientSchema = new Schema({
     type: Number,
     required: true,
   },
-  projects :[
+  projects: [
     {
-      type:mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref:'project'
     }
   ]
