@@ -54,10 +54,15 @@ module.exports = {
     const {id} = req.params;
     try {
       const organization = await Organization.findById(id).populate( 'clients' );
+      
       if (!organization) {
+        throw createError(404, 'Organization not found.');
+      }
+
+      if (!organization.clients) {
         throw createError(404, 'Organization has no clients.');
       }
-      res.send(organization);
+      res.send(organization.clients);
     } catch (error) {
       console.log(error.message);
       if (error instanceof mongoose.CastError) {
@@ -72,10 +77,15 @@ module.exports = {
     const {id} = req.params;
     try {
       const organization = await Organization.findById(id).populate( 'employees' );
+      
       if (!organization) {
+        throw createError(404, 'Organization not found.');
+      }
+
+      if (!organization.employees) {
         throw createError(404, 'Organization has no Employees.');
       }
-      res.send(organization);
+      res.send(organization.employees);
     } catch (error) {
       console.log(error.message);
       if (error instanceof mongoose.CastError) {
