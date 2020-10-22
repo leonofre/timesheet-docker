@@ -8,3 +8,19 @@ services:
     volumes:
       - D:\Projetos\timesheet:/app
     restart: always
+    depends_on:
+      - redis
+    links:
+      - redis
+    networks:
+      - redis
+  redis:
+    image: redis
+    command: redis-server --requirepass ${REDIS_PASS}
+    ports:
+      - "6379:${REDIS_PORT}"
+    networks:
+        - redis
+networks:
+  redis:
+    driver: bridge

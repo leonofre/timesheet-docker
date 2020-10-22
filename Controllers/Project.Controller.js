@@ -36,7 +36,6 @@ module.exports = {
 
       res.send({ project : result, client : client_update });
     } catch (error) {
-      console.log(error.message);
       if (error.name === 'ValidationError') {
         next(createError(422, error.message));
         return;

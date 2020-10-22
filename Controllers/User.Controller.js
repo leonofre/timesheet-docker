@@ -2,6 +2,18 @@ const createError = require('http-errors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
+const dotenv = require('dotenv').config();
+// var jwt = require('jsonwebtoken');
+
+var redis = require('redis');
+var JWTR =  require('jwt-redis').default;
+//ES6 import JWTR from 'jwt-redis';
+var redisClient = redis.createClient({
+  port      : process.env.REDIS_PORT,
+  host      : process.env.REDIS_HOST,
+  password: process.env.REDIS_PASS
+});
+var jwt = new JWTR(redisClient);
 
 const User = require('../Models/User.model');
 
@@ -54,17 +66,26 @@ module.exports = {
   userLoginCheck: async (req, res, next) => {
     try {
       const user = await User.find({ email: req.body.email});
+      
       if ( user.length === 0 ) {
         throw new Error('E-mail not found');
       }
+      
+      const id         = user[0].id;
+      const pass_check = await bcrypt.compare( req.body.password, user[0].password);
 
-      var pass_check = false;
-      bcrypt.compare( req.body.password, user[0].password, function(err, result) {
-        pass_check = result;
-        res.send( pass_check );
+      if ( ! pass_check ) {
+        throw new Error('Wrong password.');
+      }
+
+      jwt.sign({ jti: id }, process.env.SECRET, {
+        expiresIn: 10
+      })
+      .then(function (token) {
+        res.send({ auth: true, token: token });
       });
+
     } catch (error) {
-      console.log(error.message);
       if (error instanceof mongoose.CastError) {
         next(createError(400, 'Invalid User id'));
         return;
