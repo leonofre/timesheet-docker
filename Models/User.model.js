@@ -39,6 +39,23 @@ const UserSchema = new Schema({
 });
 
 UserSchema.pre('save', async function(next) {
+  // only hash the password if it has been modified (or is new)
+  if (!user.isModified('password')) return next();
+
+  try {
+    const user = await User.find({ email: this.email});
+
+    if ( user.length !== 0 ) {
+      throw new Error('E-mail already exists');
+    }
+
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+});
+
+UserSchema.pre('save', async function(next) {
   var user = this;
 
   // only hash the password if it has been modified (or is new)

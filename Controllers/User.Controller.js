@@ -1,5 +1,7 @@
 const createError = require('http-errors');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const SALT_WORK_FACTOR = 10;
 
 const User = require('../Models/User.model');
 
@@ -39,6 +41,28 @@ module.exports = {
         throw createError(404, 'User does not exist.');
       }
       res.send(user);
+    } catch (error) {
+      console.log(error.message);
+      if (error instanceof mongoose.CastError) {
+        next(createError(400, 'Invalid User id'));
+        return;
+      }
+      next(error);
+    }
+  },
+
+  userLoginCheck: async (req, res, next) => {
+    try {
+      const user = await User.find({ email: req.body.email});
+      if ( user.length === 0 ) {
+        throw new Error('E-mail not found');
+      }
+
+      var pass_check = false;
+      bcrypt.compare( req.body.password, user[0].password, function(err, result) {
+        pass_check = result;
+        res.send( pass_check );
+      });
     } catch (error) {
       console.log(error.message);
       if (error instanceof mongoose.CastError) {

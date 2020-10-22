@@ -12,6 +12,9 @@ router.post('/', UserController.createNewUser);
 //Get a User by id
 router.get('/:id', UserController.findUserById);
 
+//Login
+router.post('/auth', UserController.userLoginCheck);
+
 //Update a User by id
 router.patch('/:id', UserController.updateAUser);
 

@@ -54,9 +54,13 @@ module.exports = {
     try {
       const client = await Client.findById(id).populate( 'projects' );
       if (!client) {
+        throw createError(404, 'Client does not exist.');
+      }
+
+      if (!client.projects) {
         throw createError(404, 'Client has no projects.');
       }
-      res.send(client);
+      res.send(client.projects);
     } catch (error) {
       console.log(error.message);
       if (error instanceof mongoose.CastError) {
