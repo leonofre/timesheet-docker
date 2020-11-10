@@ -79,7 +79,7 @@ module.exports = {
       }
 
       jwt.sign({ jti: id }, process.env.SECRET, {
-        expiresIn: 10
+        expiresIn: 86400 * 30
       })
       .then(function (token) {
         res.send({ auth: true, token: token });
