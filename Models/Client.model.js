@@ -26,6 +26,10 @@ const ClientSchema = new Schema({
     type: Number,
     required: true,
   },
+  organization: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:'organization'
+  },
   projects: [
     {
       type: mongoose.Schema.Types.ObjectId,

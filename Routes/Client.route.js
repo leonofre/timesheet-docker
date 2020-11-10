@@ -15,6 +15,9 @@ router.get('/:id', ClientController.findClientById);
 //Get a Projects by Client
 router.get('/:id/projects', ClientController.findProjectByClient);
 
+//Get a Organization by Client
+router.get('/:id/organization', ClientController.findOrganizationByClient);
+
 //Update a Client by id
 router.patch('/:id', ClientController.updateAClient);
 
