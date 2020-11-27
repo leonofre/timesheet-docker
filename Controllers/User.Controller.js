@@ -36,11 +36,11 @@ module.exports = {
       const result = await user.save();
       res.send(result);
     } catch (error) {
-      console.log(error.message);
       if (error.name === 'ValidationError') {
         next(createError(422, error.message));
         return;
       }
+      
       next(error);
     }
   },
