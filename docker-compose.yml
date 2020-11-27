@@ -12,6 +12,19 @@ services:
       - redis
     links:
       - redis
+    expose:
+      - "3000"
+    networks:
+      - redis
+  tests:
+    build: .
+    command: npm test
+    ports:
+      - "4000:4000"
+    volumes:
+      - D:\Projetos\timesheet\tests:/app/tests
+    depends_on:
+      - app
     networks:
       - redis
   redis:
