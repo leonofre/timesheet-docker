@@ -40,13 +40,17 @@ const UserSchema = new Schema({
 
 UserSchema.pre('save', async function(next) {
   // only hash the password if it has been modified (or is new)
-  if (!user.isModified('password')) return next();
 
   try {
     const user = await User.find({ email: this.email});
 
     if ( user.length !== 0 ) {
-      throw new Error('E-mail already exists');
+      var error = {
+        message: 'E-mail already exists',
+        status: 422
+      };
+      
+      throw error;
     }
 
     return next();
