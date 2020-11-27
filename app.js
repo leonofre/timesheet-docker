@@ -24,10 +24,14 @@ app.use(express.urlencoded({ extended: true }));
 //Login
 app.post('/user/auth', UserController.userLoginCheck);
 
+//Create a new User
+app.post('/users', UserController.createNewUser);
+
 //Logout User
 app.post('/user/logout', function(req, res) {
   res.send( jwt.destroy( req.body.id, process.env.SECRET) );
 })
+
 
 app.use(function (req, res, next) {
   var token = req.headers['x-access-token'];
