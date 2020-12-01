@@ -2,6 +2,8 @@ const API_BASE = 'http://app:3000/';
 
 const mockAxios = require('jest-mock-axios').default;
 const axios = require('axios');
+const bcrypt = require('bcrypt');
+const SALT_WORK_FACTOR = 10;
 
 const data = {
     "name": "Usuário 3",
@@ -59,14 +61,14 @@ describe("Testing Create User endpoint", () => {
         expect(thenFn).toBeCalledWith(
             expect.objectContaining({
                 "_id": expect.any(String),
-                "name": "Usuário 3",
-                "cpf": "86783252248",
-                "email": "leonardo.dias4@agenciakindle.com.br",
+                "name": data.name,
+                "cpf": data.cpf,
+                "email": data.email,
                 "password": expect.any(String),
-                "occupation": "Development coodinator",
-                "role": "admin",
-                "income": 5500.0,
-                "organization": "5f8f83ca0564ff004601ce3e",
+                "occupation": data.occupation,
+                "role": data.role,
+                "income": data.income,
+                "organization": data.organization,
                 "__v": expect.any(Number),
             }),
         );    
