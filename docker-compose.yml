@@ -1,12 +1,14 @@
 version: "3.8"
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     command: npm run start
     ports:
       - "3000:3000"
     volumes:
-      - D:\Projetos\timesheet:/app
+      - D:\Projetos\timesheet\api:/api
     restart: always
     depends_on:
       - redis
@@ -16,17 +18,19 @@ services:
       - "3000"
     networks:
       - redis
-  tests:
-    build: .
-    command: npm test
-    ports:
-      - "4000:4000"
-    volumes:
-      - D:\Projetos\timesheet\tests:/app/tests
-    depends_on:
-      - app
-    networks:
-      - redis
+  # tests:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile-tests
+  #   command: npm start
+  #   ports:
+  #     - "4000:4000"
+  #   volumes:
+  #     - D:\Projetos\timesheet\tests:/tests
+  #   depends_on:
+  #     - app
+  #   networks:
+  #     - redis
   redis:
     image: redis
     command: redis-server --requirepass ${REDIS_PASS}

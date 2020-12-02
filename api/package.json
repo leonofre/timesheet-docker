@@ -4,11 +4,8 @@
   "description": "TimeSheet",
   "main": "app.js",
   "scripts": {
-    "test": "cd tests && jest --env=node",
-    "start": "npm uninstall bcrypt && npm install bcrypt && nodemon -L app.js"
-  },
-  "jest": {
-    "verbose": true
+    "test": "jest --env=node --watchAll",
+    "start": "npm uninstall bcrypt && npm install bcrypt && nodemon -L server.js"
   },
   "author": "Leonofre",
   "license": "ISC",
@@ -20,14 +17,14 @@
     "express": "^4.17.1",
     "http-errors": "^1.7.3",
     "jest-cli": "^26.6.3",
-    "jest-mock-axios": "^4.2.1",
     "jsonwebtoken": "^8.5.1",
     "jwt-redis": "^6.0.0",
     "mongoose": "^5.7.13",
     "node-fetch": "^2.6.1",
     "node-gyp": "^7.1.2",
     "nodemon": "^2.0.6",
-    "redis": "^3.0.2"
+    "redis": "^3.0.2",
+    "supertest": "^6.0.1"
   },
   "devDependencies": {
     "jest": "^26.6.3"
